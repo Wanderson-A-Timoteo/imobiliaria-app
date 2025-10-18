@@ -1,18 +1,85 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function PaginaImovel({ navigation }) {
+const cores = {
+  fundo: '#EDC4B3',
+  verdeEscuro: '#545947',
+  branco: '#FFF',
+  vermelho: '#AC3131',
+};
+
+export default function PaginaImovel({ route, navigation }) {
+  const { imovelDados } = route.params;
+
+  const lidarCliqueExcluir = () => {
+    console.log('Excluir imóvel:', imovelDados.titulo);
+
+    navigation.goBack();
+  };
+
   return (
-    <View style={estilos.container}>
-      <Text>Página de Detalhes do Imóvel</Text>
-    </View>
+    <SafeAreaView style={estilos.container}>
+      <ScrollView>
+        <Image source={imovelDados.imagem} style={estilos.imagemImovel} />
+
+        <View style={estilos.conteudoContainer}>
+          <Text style={estilos.titulo}>{imovelDados.titulo}</Text>
+          <Text style={estilos.valor}>{imovelDados.valor}</Text>
+          <Text style={estilos.descricao}>{imovelDados.descricao}</Text>
+          <TouchableOpacity 
+            style={estilos.botaoExcluir}
+            onPress={lidarCliqueExcluir}
+          >
+            <Text style={estilos.textoBotao}>Excluir imóvel</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: cores.fundo,
+  },
+  imagemImovel: {
+    width: '100%',
+    height: 250,
+    resizeMode: 'cover',
+  },
+  conteudoContainer: {
+    padding: '5%',
+  },
+  titulo: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 10,
+  },
+  valor: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: cores.verdeEscuro,
+    marginBottom: 20,
+  },
+  descricao: {
+    fontSize: 17,
+    color: '#000',
+    lineHeight: 24,
+    marginBottom: 30,
+  },
+  botaoExcluir: {
+    backgroundColor: cores.vermelho,
+    padding: 18,
+    borderRadius: 8,
+    width: '100%',
     alignItems: 'center',
+  },
+  textoBotao: {
+    color: cores.branco,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
