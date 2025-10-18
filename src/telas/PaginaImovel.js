@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, Platform } from 'react-native'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const cores = {
@@ -12,27 +12,32 @@ const cores = {
 export default function PaginaImovel({ route, navigation, setListaImoveis }) { 
   const { imovelDados } = route.params;
 
-  const lidarCliqueExcluir = () => {
-    Alert.alert(
-      "Confirmar Exclusão",
-      `Tem certeza que deseja excluir o imóvel "${imovelDados.titulo}"?`,
-      [
-        {
-          text: "Cancelar",
-          style: "cancel"
-        },
-        { 
-          text: "Excluir", 
-          onPress: () => {
-            setListaImoveis(listaAnterior => 
-              listaAnterior.filter(imovel => imovel.id !== imovelDados.id) 
-            );
-            navigation.goBack(); 
-          },
-          style: "destructive"
-        }
-      ]
-    );
+const lidarCliqueExcluir = () => {
+    const executarExclusao = () => {
+      setListaImoveis(listaAnterior => 
+        listaAnterior.filter(imovel => imovel.id !== imovelDados.id) 
+      );
+      navigation.navigate('PaginaInicial'); 
+    };
+
+    if (Platform.OS === 'web') {
+      if (window.confirm(`Tem certeza que deseja excluir o imóvel "${imovelDados.titulo}"?`)) {
+        executarExclusao();
+      }
+    } else {
+      Alert.alert(
+        "Confirmar Exclusão",
+        `Tem certeza que deseja excluir o imóvel "${imovelDados.titulo}"?`,
+        [
+          { text: "Cancelar", style: "cancel" },
+          { 
+            text: "Excluir", 
+            onPress: executarExclusao,
+            style: "destructive"
+          }
+        ]
+      );
+    }
   };
 
   return (
