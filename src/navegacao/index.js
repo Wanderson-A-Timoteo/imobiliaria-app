@@ -34,7 +34,7 @@ export default function NavegacaoPrincipal() {
         <Stack.Screen 
           name="PaginaInicial" 
           component={PaginaInicial} 
-          options={{ title: '3 Cores Imobiliária' }} 
+          options={{ title: '3 Cores Imobiliária', headerShown: false }} 
         />
         <Stack.Screen 
           name="CadastroImovel" 
