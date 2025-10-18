@@ -64,11 +64,6 @@ const estilos = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: cores.fundo,
-    ...Platform.select({
-      web: {
-        alignItems: 'center',
-      }
-    })
   },
   imagemImovel: {
     width: '100%',
@@ -77,6 +72,7 @@ const estilos = StyleSheet.create({
     ...Platform.select({
       web: {
         maxWidth: 900,
+        alignSelf: 'center',
       }
     })
   },
@@ -86,6 +82,7 @@ const estilos = StyleSheet.create({
     ...Platform.select({
       web: {
         maxWidth: 900,
+        alignSelf: 'center',
       }
     })
   },
