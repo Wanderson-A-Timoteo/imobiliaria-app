@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import dadosIniciaisImoveis from '../dados/imoveis'; 
 
 import PaginaInicial from '../telas/PaginaInicial';
 import CadastroImovel from '../telas/CadastroImovel';
@@ -15,37 +17,51 @@ const cores = {
 };
 
 export default function NavegacaoPrincipal() {
+  const [imoveis, setImoveis] = useState(dadosIniciaisImoveis);
+
   return (
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName="PaginaInicial"
         screenOptions={{
-          headerStyle: {
-            backgroundColor: cores.fundo,
-            elevation: 0,
-            shadowOpacity: 0,
-          },
+          headerStyle: { backgroundColor: cores.fundo, elevation: 0, shadowOpacity: 0 },
           headerTintColor: cores.verdeEscuro,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitleStyle: { fontWeight: 'bold' },
         }}
       >
         <Stack.Screen 
           name="PaginaInicial" 
-          component={PaginaInicial} 
           options={{ title: '3 Cores Imobiliária', headerShown: false }} 
-        />
+        >
+          {props => (
+            <PaginaInicial {...props} 
+              listaImoveis={imoveis} 
+            />
+          )}
+        </Stack.Screen>
+
         <Stack.Screen 
           name="CadastroImovel" 
-          component={CadastroImovel} 
           options={{ title: 'Cadastrar Novo Imóvel' }} 
-        />
+        >
+          {props => (
+            <CadastroImovel {...props} 
+              setListaImoveis={setImoveis} 
+            />
+          )}
+        </Stack.Screen> 
+
         <Stack.Screen 
           name="PaginaImovel" 
-          component={PaginaImovel} 
           options={{ title: 'Detalhes do Imóvel' }} 
-        />
+        >
+          {props => (
+            <PaginaImovel {...props} 
+              setListaImoveis={setImoveis} 
+            />
+          )}
+        </Stack.Screen>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
