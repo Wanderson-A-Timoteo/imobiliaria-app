@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
 export default function CardImovel({ imovel, onPress }) {
   
@@ -7,17 +7,10 @@ export default function CardImovel({ imovel, onPress }) {
 
   return (
     <TouchableOpacity style={estilos.containerCard} onPress={onPress}>
-      {/* ESPAÇO PARA IMAGEM  */}
       <Image source={imovel.imagem} style={estilos.imagemCard} />
-
       <View style={estilos.textoContainer}>
-        {/* Título do anúncio  */}
         <Text style={estilos.tituloCard}>{imovel.titulo}</Text>
-        
-        {/* Breve descrição do anúncio  */}
         <Text style={estilos.descricaoCard}>{breveDescricao}</Text>
-        
-        {/* R$ Valor  */}
         <Text style={estilos.valorCard}>{imovel.valor}</Text>
       </View>
     </TouchableOpacity>
@@ -38,6 +31,12 @@ const estilos = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
+    ...Platform.select({
+      web: {
+        maxWidth: 700,
+        alignSelf: 'center',
+      }
+    })
   },
   imagemCard: {
     width: 100,
