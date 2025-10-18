@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, ScrollView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -7,7 +7,7 @@ const cores = {
   fundo: '#EDC4B3',
   verdeEscuro: '#545947',
   branco: '#FFF',
-  placeholder: '#8a8a8a',
+  placeholder: '#bbb',
   azulClaro: '#A5DDD6',
 };
 
@@ -69,6 +69,7 @@ export default function CadastroImovel({ navigation, setListaImoveis }) {
           <TextInput
             style={estilos.input}
             placeholder="Ex: Casa com 3 quartos"
+            placeholderTextColor={cores.placeholder}
             value={titulo}
             onChangeText={setTitulo}
           />
@@ -77,6 +78,7 @@ export default function CadastroImovel({ navigation, setListaImoveis }) {
           <TextInput
             style={[estilos.input, estilos.inputDescricao]}
             placeholder="Ex: Casa espaçosa, com piscina e..."
+            placeholderTextColor={cores.placeholder}
             value={descricao}
             onChangeText={setDescricao}
             multiline
@@ -87,6 +89,7 @@ export default function CadastroImovel({ navigation, setListaImoveis }) {
           <TextInput
             style={estilos.input}
             placeholder="Ex: 550.000,00"
+            placeholderTextColor={cores.placeholder}
             value={valor}
             onChangeText={setValor}
             keyboardType="numeric"
@@ -123,6 +126,13 @@ const estilos = StyleSheet.create({
   formularioContainer: {
     flex: 1,
     padding: '5%',
+    width: '100%',
+    ...Platform.select({
+      web: {
+        maxWidth: 800,
+        alignSelf: 'center',
+      }
+    })
   },
   label: {
     fontSize: 18,

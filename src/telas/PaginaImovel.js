@@ -63,15 +63,31 @@ const lidarCliqueExcluir = () => {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: cores.fundo, 
+    backgroundColor: cores.fundo,
+    ...Platform.select({
+      web: {
+        alignItems: 'center',
+      }
+    })
   },
   imagemImovel: {
     width: '100%',
-    height: 250, 
+    height: 300, 
     resizeMode: 'cover',
+    ...Platform.select({
+      web: {
+        maxWidth: 900,
+      }
+    })
   },
   conteudoContainer: {
     padding: '5%',
+    width: '100%',
+    ...Platform.select({
+      web: {
+        maxWidth: 900,
+      }
+    })
   },
   titulo: {
     fontSize: 28,

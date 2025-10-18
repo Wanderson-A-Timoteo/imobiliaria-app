@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { bannerPrincipal } from '../dados/imoveis';
@@ -75,6 +75,12 @@ const estilos = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     marginBottom: 20,
+    ...Platform.select({
+      web: {
+        maxWidth: 700,
+        alignSelf: 'center',
+      }
+    })
   },
   textoBotao: {
     color: '#FFF',
@@ -87,6 +93,15 @@ const estilos = StyleSheet.create({
     color: '#000',
     marginLeft: '5%',
     marginBottom: 10,
+    ...Platform.select({
+      web: {
+        marginLeft: 0,
+        textAlign: 'center',
+        width: '90%',
+        alignSelf: 'center',
+        maxWidth: 700,
+      }
+    })
   },
   lista: {
     width: '100%',
