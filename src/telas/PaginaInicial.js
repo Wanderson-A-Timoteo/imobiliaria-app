@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import dadosImoveis, { bannerPrincipal } from '../dados/imoveis';
+import { bannerPrincipal } from '../dados/imoveis';
 import CardImovel from '../componentes/CardImovel';
 
-export default function PaginaInicial({ navigation }) {
+export default function PaginaInicial({ navigation, listaImoveis }) {
   
   const lidarCliqueCadastrar = () => {
     navigation.navigate('CadastroImovel'); 
@@ -15,7 +15,6 @@ export default function PaginaInicial({ navigation }) {
     navigation.navigate('PaginaImovel', { imovelDados: imovel }); 
   };
 
-  // Função para renderizar cada item da lista
   const renderizarItem = ({ item }) => (
     <CardImovel 
       imovel={item} 
@@ -25,13 +24,11 @@ export default function PaginaInicial({ navigation }) {
 
   return (
     <SafeAreaView style={estilos.container}>
-      {/* Cabeçalho */}
       <View style={estilos.containerCabecalho}>
         <Image source={bannerPrincipal} style={estilos.banner} />
         <Text style={estilos.tituloCabecalho}>3 Cores Imobiliária</Text>
       </View>
 
-      {/* Botão de Cadastro */}
       <TouchableOpacity 
         style={estilos.botaoCadastro} 
         onPress={lidarCliqueCadastrar}
@@ -39,12 +36,10 @@ export default function PaginaInicial({ navigation }) {
         <Text style={estilos.textoBotao}>Cadastrar novo imóvel</Text>
       </TouchableOpacity>
 
-      {/* Título da Lista */}
       <Text style={estilos.tituloLista}>Nossos Imóveis:</Text>
 
-      {/* Lista de Imóveis */}
       <FlatList
-        data={dadosImoveis}
+        data={listaImoveis}
         renderItem={renderizarItem}
         keyExtractor={item => item.id}
         style={estilos.lista}
